@@ -1,8 +1,9 @@
+# Generador de Cronogramas en español 
+
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-
 
 class CronogramaApp:
     def __init__(self, root):
@@ -12,26 +13,38 @@ class CronogramaApp:
 
         # Datos iniciales
         self.periodos = [
-            "P1", "P2", "P3", "P4",
-            "P5", "P6", "P7", "P8"
+            "Semestre 1", "Semestre 2", "Semestre 3", "Semestre 4",
+            "Semestre 5", "Semestre 6", "Semestre 7", "Semestre 8"
         ]
 
         self.actividades = [
-            "Revisión bibliográfica",
-            "Diseño de la metodología",
-            "Implementación",
-            "Experimentación",
-            "Análisis de resultados"
+            "Revisión bibliográfica y estado del arte",
+            "Delimitación del tema y propuesta de la metodología a seguir",
+            "Ajuste de propuesta y presentación de propuesta doctoral",
+            "Selección de conjuntos de datos y su entrenamiento",
+            "Análisis de resultados preliminares para afinación de metodología",
+            "Evaluación, comparación y análisis de la complejidad computacional",
+            "Obtención y análisis de resultados finales",
+            "Redacción de artículos para su publicación en revistas JCR y congresos específicos",
+            "Redacción de tesis",
+            "Examen predoctoral",
+            "Examen de grado"
         ]
 
         # Matriz:
         # matriz[fila][columna] = True/False
         self.matriz = [
+            [True, True, True, True, True, True, True, False],
             [True, True, False, False, False, False, False, False],
-            [False, True, True, True, False, False, False, False],
-            [False, False, True, True, True, True, False, False],
-            [False, False, False, False, True, True, True, False],
-            [False, False, False, False, False, True, True, True],
+            [False, True, False, False, False, False, False, False],
+            [False, True, True, True, True, False, False, False],
+            [False, False, True, True, False, False, False, False],
+            [False, False, False, True, True, True, False, False],
+            [False, False, False, False, False, True, True, False],
+            [False, True, True, True, True, True, True, False],
+            [False, True, True, True, True, True, True, True],
+            [False, False, False, False, False, True, False, False],
+            [False, False, False, False, False, False, False, True],
         ]
 
         self.crear_interfaz()
@@ -411,7 +424,7 @@ class CronogramaApp:
         n_periodos = len(self.periodos)
 
         # Tamaño dinámico
-        ancho = max(10, n_periodos * 1.1)
+        ancho = max(10, n_periodos * 2)
         alto = max(4, n_actividades * 0.7)
 
         fig, ax = plt.subplots(
@@ -479,8 +492,9 @@ class CronogramaApp:
             list(reversed(self.actividades))
         )
 
-        ax.set_xlabel("Periodo")
-        ax.set_ylabel("Actividad")
+        # Etiquetas en los ejes
+        ax.set_xlabel("") 
+        ax.set_ylabel("")
 
         ax.set_title(
             "Cronograma de actividades"
