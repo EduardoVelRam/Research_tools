@@ -18,8 +18,8 @@ FONT_SIZE = "12"
 LINE_WIDTH = "1.2"
 
 # Espaciado entre elementos
-NODE_SEPARATION = "0.5"
-RANK_SEPARATION = "0.7"
+NODE_SEPARATION = "0.8"
+RANK_SEPARATION = "1"
 
 
 # ============================================================
@@ -104,20 +104,20 @@ CONEXIONES = [
         "destino": "par",
         "etiqueta": "Sí",
         "salida": "w",
-        "entrada": "e",
+        "entrada": "n",
     },
     {
         "origen": "decision",
         "destino": "impar",
         "etiqueta": "No",
         "salida": "e",
-        "entrada": "w",
+        "entrada": "n",
     },
     {
         "origen": "par",
         "destino": "fin",
         "salida": "s",
-        "entrada": "w",
+        "entrada": "n",
     },
     {
         "origen": "impar",
@@ -146,7 +146,7 @@ FORMAS = {
 # ============================================================
 
 def generar_diagrama():
-    """Construye el diagrama a partir de ELEMENTOS y CONEXIONES."""
+    """Build the diagram using ELEMENTS and CONNECTIONS."""
 
     diagrama = Digraph(
         name=DIAGRAM_NAME,
@@ -160,7 +160,7 @@ def generar_diagrama():
         pad="0.25",
         nodesep=NODE_SEPARATION,
         ranksep=RANK_SEPARATION,
-        splines="line",
+        splines="ortho",
         outputorder="edgesfirst",
     )
 
@@ -185,7 +185,7 @@ def generar_diagrama():
         fontname=FONT_NAME,
         fontsize="10",
         penwidth=LINE_WIDTH,
-        arrowsize="0.8",
+        arrowsize="1",
     )
 
     # Registrar los identificadores existentes
@@ -199,12 +199,12 @@ def generar_diagrama():
 
         if identificador in ids:
             raise ValueError(
-                f"Identificador duplicado: {identificador}"
+                f"Duplicate identifier: {identificador}"
             )
 
         if tipo not in FORMAS:
             raise ValueError(
-                f"Tipo de elemento no reconocido: {tipo}"
+                f"Unrecognized element type: {tipo}"
             )
 
         ids.add(identificador)
@@ -215,6 +215,7 @@ def generar_diagrama():
             shape=FORMAS[tipo],
         )
 
+    # Agregar las conexiones
     # Agregar las conexiones
     # Agregar las conexiones
     # Agregar las conexiones
@@ -229,7 +230,6 @@ def generar_diagrama():
                 f"Conexión inválida: {origen} -> {destino}"
             )
 
-        # Puntos centrales de las figuras
         puerto_salida = conexion.get("salida", "s")
         puerto_entrada = conexion.get("entrada", "n")
 
@@ -247,7 +247,7 @@ def generar_diagrama():
 # ============================================================
 
 def exportar_diagrama(diagrama, formato):
-    """Exporta el diagrama al formato seleccionado."""
+    """Export the diagram to the selected format."""
 
     formatos_validos = {
         "1": "jpg",
@@ -276,7 +276,7 @@ def exportar_diagrama(diagrama, formato):
         cleanup=True,
     )
 
-    print("\nDiagrama generado correctamente.")
+    print("\nDiagram generated successfully.")
     print(f"Formato: {extension.upper()}")
     print(f"Archivo: {Path(ruta).resolve()}")
 
@@ -287,22 +287,22 @@ def exportar_diagrama(diagrama, formato):
 
 def main():
     print("=" * 45)
-    print(" GENERADOR DE DIAGRAMAS DE FLUJO")
+    print(" FLOWCHART GENERATOR")
     print("=" * 45)
 
     try:
         diagrama = generar_diagrama()
     except (ValueError, KeyError) as error:
-        print(f"\nError al construir el diagrama: {error}")
+        print(f"\nError while building the diagram: {error}")
         return
 
-    print("\nSelecciona el formato de exportación:")
+    print("\nSelect the export format:")
     print("1. JPG")
     print("2. PNG")
     print("3. SVG")
-    print("4. Todos los formatos")
+    print("4. All formats")
 
-    opcion = input("\nOpción: ").strip()
+    opcion = input("\nOption: ").strip()
 
     if opcion == "4":
         for formato in ("1", "2", "3"):
