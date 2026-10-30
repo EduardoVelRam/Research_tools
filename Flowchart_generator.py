@@ -90,28 +90,40 @@ CONEXIONES = [
     {
         "origen": "inicio",
         "destino": "entrada",
+        "salida": "s",
+        "entrada": "n",
     },
     {
         "origen": "entrada",
         "destino": "decision",
+        "salida": "s",
+        "entrada": "n",
     },
     {
         "origen": "decision",
         "destino": "par",
         "etiqueta": "Sí",
+        "salida": "w",
+        "entrada": "e",
     },
     {
         "origen": "decision",
         "destino": "impar",
         "etiqueta": "No",
+        "salida": "e",
+        "entrada": "w",
     },
     {
         "origen": "par",
         "destino": "fin",
+        "salida": "s",
+        "entrada": "w",
     },
     {
         "origen": "impar",
         "destino": "entrada",
+        "salida": "s",
+        "entrada": "e",
     },
 ]
 
@@ -148,7 +160,7 @@ def generar_diagrama():
         pad="0.25",
         nodesep=NODE_SEPARATION,
         ranksep=RANK_SEPARATION,
-        splines="ortho",
+        splines="line",
         outputorder="edgesfirst",
     )
 
@@ -204,24 +216,26 @@ def generar_diagrama():
         )
 
     # Agregar las conexiones
+    # Agregar las conexiones
+    # Agregar las conexiones
     for conexion in CONEXIONES:
+
         origen = conexion["origen"]
         destino = conexion["destino"]
         etiqueta = conexion.get("etiqueta", "")
 
-        if origen not in ids:
+        if origen not in ids or destino not in ids:
             raise ValueError(
-                f"El elemento de origen no existe: {origen}"
+                f"Conexión inválida: {origen} -> {destino}"
             )
 
-        if destino not in ids:
-            raise ValueError(
-                f"El elemento de destino no existe: {destino}"
-            )
+        # Puntos centrales de las figuras
+        puerto_salida = conexion.get("salida", "s")
+        puerto_entrada = conexion.get("entrada", "n")
 
         diagrama.edge(
-            origen,
-            destino,
+            f"{origen}:{puerto_salida}",
+            f"{destino}:{puerto_entrada}",
             label=etiqueta,
         )
 
