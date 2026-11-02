@@ -7,7 +7,7 @@ from PIL import Image, ImageOps
 
 
 # ============================================================
-# CONFIGURACIÓN
+# CONFIGURATION
 # ============================================================
 
 INPUT_DIR = Path("anmtn_images")
@@ -16,13 +16,13 @@ OUTPUT_DIR = Path("animation_output")
 OUTPUT_GIF = OUTPUT_DIR / "animacion.gif"
 OUTPUT_MP4 = OUTPUT_DIR / "animacion.mp4"
 
-# Duración que permanece visible cada imagen, en segundos.
-IMAGE_DURATION = 2.0
+# Image duration in seconds
+IMAGE_DURATION = 3.0
 
-# Duración de la transición entre imágenes, en segundos.
-TRANSITION_DURATION = 0.8
+# Transition duration in seconds
+TRANSITION_DURATION = 0.6
 
-# Fotogramas por segundo del MP4.
+# Frames per second for MP4.
 FPS = 30
 
 # Resolución de salida: (ancho, alto).
@@ -37,7 +37,7 @@ TRANSITION = "fade"
 
 # Calidad del MP4: valores entre 0 y 10.
 # Un valor menor generalmente produce mejor calidad.
-MP4_QUALITY = 6
+MP4_QUALITY = 8
 
 # Repetir el GIF indefinidamente.
 GIF_LOOP = 0
@@ -74,7 +74,7 @@ def load_images():
 
     if len(files) < 2:
         raise ValueError(
-            "Se necesitan al menos dos imágenes en la carpeta images/."
+            "At least two images are required/."
         )
 
     images = []
@@ -118,7 +118,7 @@ def load_images():
                 background.convert("RGB")
             )
 
-            print(f"Imagen cargada: {file.name}")
+            print(f"Loaded image: {file.name}")
 
     return images
 
@@ -196,7 +196,7 @@ def make_transition(img1, img2, alpha, seed):
         return dissolve_transition(img1, img2, alpha, seed)
 
     raise ValueError(
-        f"Transición desconocida: {TRANSITION}"
+        f"Unknown transition: {TRANSITION}"
     )
 
 
@@ -217,13 +217,13 @@ def generate_frames(images):
     transition_frames = round(TRANSITION_DURATION * FPS)
 
     if IMAGE_DURATION <= 0:
-        raise ValueError("IMAGE_DURATION debe ser mayor que cero.")
+        raise ValueError("IMAGE_DURATION must be higher than cero.")
 
     if TRANSITION_DURATION < 0:
-        raise ValueError("TRANSITION_DURATION no puede ser negativa.")
+        raise ValueError("TRANSITION_DURATION cant be negative.")
 
     if FPS <= 0:
-        raise ValueError("FPS debe ser mayor que cero.")
+        raise ValueError("FPS must be higher tnah cero")
 
     frames = []
 
@@ -232,7 +232,7 @@ def generate_frames(images):
         for _ in range(hold_frames):
             frames.append(image.copy())
 
-        # Transición hacia la siguiente imagen.
+        # Transition to next image
         if i < len(images) - 1 and transition_frames > 0:
             next_image = images[i + 1]
 
