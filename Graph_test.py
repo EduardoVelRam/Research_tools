@@ -210,4 +210,37 @@ if SHOW_GRID:
     )
 
 
+# ============================================================
+# 7. CONFIGURACIÓN DE EJES Y ETIQUETAS
+# ============================================================
 
+ax.set_title(TITLE, fontsize=15, fontweight="bold")
+ax.set_xlabel(X_LABEL, fontsize=12)
+ax.set_ylabel(Y_LABEL, fontsize=12)
+
+if SHOW_X_LIMITS:
+    ax.set_xlim(X_LIMITS)
+
+if SHOW_Y_LIMITS:
+    ax.set_ylim(Y_LIMITS)
+
+if SHOW_LEGEND:
+    ax.legend(fontsize=10, loc="best")
+
+ax.tick_params(axis="both", labelsize=10)
+
+plt.tight_layout()
+
+
+# ============================================================
+# 8. EXPORTACIÓN Y VISUALIZACIÓN
+# ============================================================
+
+if SAVE_FIGURE:
+    plt.savefig(
+        f"{OUTPUT_NAME}.{OUTPUT_FORMAT}",
+        dpi=DPI,
+        bbox_inches="tight"
+    )
+
+plt.show()
