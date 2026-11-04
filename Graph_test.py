@@ -2,10 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-# ============================================================
-# 1. CONFIGURACIÓN GENERAL
-# ============================================================
+# 1. GENERAL CONFIGURATION
 
 RANDOM_SEED = 42
 N = 50
@@ -41,9 +38,7 @@ OUTPUT_FORMAT = "png"  # png, jpg, svg
 DPI = 300
 
 
-# ============================================================
-# 2. GENERACIÓN DE DATOS SINTÉTICOS
-# ============================================================
+# 2. SYNTETIC DATA GENERATION
 
 np.random.seed(RANDOM_SEED)
 
@@ -65,9 +60,7 @@ datasets = {
 }
 
 
-# ============================================================
-# 3. CONFIGURACIÓN DE LA FIGURA
-# ============================================================
+# 3. FIGURE AND AXIS CREATION
 
 fig, ax = plt.subplots(figsize=(12, 6))
 
@@ -91,9 +84,7 @@ styles = {
 }
 
 
-# ============================================================
-# 4. GRAFICACIÓN DE LOS DATOS
-# ============================================================
+# 4. DATA PLOTTING
 
 for name, data in datasets.items():
 
@@ -148,9 +139,7 @@ for name, data in datasets.items():
         )
 
 
-# ============================================================
-# 5. ELEMENTOS ESTADÍSTICOS
-# ============================================================
+# 5. STATISTICAL ELEMENTS
 
 for name, data in datasets.items():
 
@@ -188,9 +177,7 @@ for name, data in datasets.items():
         )
 
 
-# ============================================================
-# 6. ELEMENTOS DE REFERENCIA
-# ============================================================
+# 6. REFERENCE ELEMENTS
 
 if SHOW_ZERO_LINE:
     ax.axhline(
@@ -210,9 +197,7 @@ if SHOW_GRID:
     )
 
 
-# ============================================================
-# 7. CONFIGURACIÓN DE EJES Y ETIQUETAS
-# ============================================================
+# 7. AXIS AND LABELS CONFIGURATION
 
 ax.set_title(TITLE, fontsize=15, fontweight="bold")
 ax.set_xlabel(X_LABEL, fontsize=12)
@@ -232,9 +217,7 @@ ax.tick_params(axis="both", labelsize=10)
 plt.tight_layout()
 
 
-# ============================================================
-# 8. EXPORTACIÓN Y VISUALIZACIÓN
-# ============================================================
+# 8. VISUALIZATION AND EXPORT
 
 if SAVE_FIGURE:
     plt.savefig(
