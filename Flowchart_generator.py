@@ -6,20 +6,20 @@ from graphviz import Digraph
 # CONFIGURACIÓN GENERAL
 # ============================================================
 
-DIAGRAM_NAME = "diagrama_flujo"
+DIAGRAM_NAME = "diagramaFlujo"
 OUTPUT_DIR = Path("output")
 
 # Orientación: "TB" = arriba hacia abajo, "LR" = izquierda a derecha
-ORIENTATION = "TB"
+ORIENTATION = "LR"
 
 # Apariencia
 FONT_NAME = "Arial"
-FONT_SIZE = "12"
-LINE_WIDTH = "1.2"
+FONT_SIZE = "22"
+LINE_WIDTH = "2.2"
 
 # Espaciado entre elementos
 NODE_SEPARATION = "0.8"
-RANK_SEPARATION = "1"
+RANK_SEPARATION = "0.4"
 
 
 # ============================================================
@@ -40,37 +40,43 @@ RANK_SEPARATION = "1"
 #   texto  : texto que aparece dentro de la figura
 #
 # ============================================================
+etapa1 = "Definición Formal del\n Espacio de Búsqueda y\n Representación (GP)."
+etapa2 = "Definición de las \nFunciones Matemáticas \nPrimarias y Primitivas."
+etapa3 = "Diseño de la Función\n de Aptitud (Fitness\n Function)."
+etapa4 = "Operadores Genéticos\n y Estrategia de \nEvolución."
+etapa5 = "Ensamblado y \nPipeline de \nGeneración Visual."
+etapa6 = "Validación y \nAnálisis de \nResultados."
 
 ELEMENTOS = [
     {
-        "id": "inicio",
-        "tipo": "inicio",
-        "texto": "Inicio",
-    },
-    {
-        "id": "entrada",
-        "tipo": "entrada",
-        "texto": "Ingresar número",
-    },
-    {
-        "id": "decision",
-        "tipo": "decision",
-        "texto": "¿El número es par?",
-    },
-    {
-        "id": "par",
+        "id": "e1",
         "tipo": "proceso",
-        "texto": "Mostrar 'Es par'",
+        "texto": etapa1,
     },
     {
-        "id": "impar",
+        "id": "e2",
         "tipo": "proceso",
-        "texto": "Mostrar 'Es impar'",
+        "texto": etapa2,
     },
     {
-        "id": "fin",
-        "tipo": "fin",
-        "texto": "Fin",
+        "id": "e3",
+        "tipo": "proceso",
+        "texto": etapa3,
+    },
+    {
+        "id": "e4",
+        "tipo": "proceso",
+        "texto": etapa4,
+    },
+    {
+        "id": "e5",
+        "tipo": "proceso",
+        "texto": etapa5,
+    },
+   {
+        "id": "e6",
+        "tipo": "proceso",
+        "texto": etapa6,
     },
 ]
 
@@ -88,42 +94,34 @@ ELEMENTOS = [
 
 CONEXIONES = [
     {
-        "origen": "inicio",
-        "destino": "entrada",
-        "salida": "s",
-        "entrada": "n",
-    },
-    {
-        "origen": "entrada",
-        "destino": "decision",
-        "salida": "s",
-        "entrada": "n",
-    },
-    {
-        "origen": "decision",
-        "destino": "par",
-        "etiqueta": "Sí",
-        "salida": "w",
-        "entrada": "n",
-    },
-    {
-        "origen": "decision",
-        "destino": "impar",
-        "etiqueta": "No",
+        "origen": "e1",
+        "destino": "e2",
         "salida": "e",
-        "entrada": "n",
+        "entrada": "w",
     },
     {
-        "origen": "par",
-        "destino": "fin",
-        "salida": "s",
-        "entrada": "n",
+        "origen": "e2",
+        "destino": "e3",
+        "salida": "e",
+        "entrada": "w",
     },
     {
-        "origen": "impar",
-        "destino": "entrada",
-        "salida": "s",
-        "entrada": "e",
+        "origen": "e3",
+        "destino": "e4",
+        "salida": "e",
+        "entrada": "w",
+    },
+    {
+        "origen": "e4",
+        "destino": "e5",
+        "salida": "e",
+        "entrada": "w",
+    },
+    {
+        "origen": "e5",
+        "destino": "e6",
+        "salida": "e",
+        "entrada": "w",
     },
 ]
 
@@ -183,9 +181,9 @@ def generar_diagrama():
         color="black",
         fontcolor="black",
         fontname=FONT_NAME,
-        fontsize="10",
+        fontsize="5",
         penwidth=LINE_WIDTH,
-        arrowsize="1",
+        arrowsize="0.8",
     )
 
     # Registrar los identificadores existentes
